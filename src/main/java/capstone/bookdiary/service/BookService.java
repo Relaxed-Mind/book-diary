@@ -19,9 +19,6 @@ public class BookService {
     @Autowired
     private RestTemplate restTemplate;
 
-
-    //TODO: 도서 검색 외부 api 요청
-
     public Map<String, Object> searchBook(String title){
         String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title="+title;
 
@@ -37,5 +34,16 @@ public class BookService {
         Map<String, Object> json = TypeConvert.JsonStringToJson(jsonString);
         return json;
     }
-    //TODO: 도서 세부 정보 외부 api 요청
+
+    public Map<String, Object> viewBookInfo(String isbn){
+        String bookSearchApiUrl = "http://data4library.kr/api/srchDtlList?authKey="+libraryKey+"&isbn13="+isbn+"&format=json";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
+        Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
+        return json;
+    }
 }
