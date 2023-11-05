@@ -1,4 +1,4 @@
-package capstone.bookdiary.entity;
+package capstone.bookdiary.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,9 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Scrap {
+public class Image extends BaseTimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long imageId;
+
+    private String imageUrl;
 }

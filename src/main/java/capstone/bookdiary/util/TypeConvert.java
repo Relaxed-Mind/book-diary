@@ -1,4 +1,4 @@
-package capstone.util;
+package capstone.bookdiary.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

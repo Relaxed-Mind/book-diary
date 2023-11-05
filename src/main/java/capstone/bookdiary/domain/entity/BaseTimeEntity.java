@@ -1,4 +1,4 @@
-package capstone.bookdiary.entity;
+package capstone.bookdiary.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
