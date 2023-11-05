@@ -1,7 +1,10 @@
 package capstone.bookdiary.controller;
 
 import capstone.bookdiary.service.BookService;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,9 @@ public class BookController {
 
 
     @GetMapping("/search/{title}")
-    public void searchBook(@PathVariable String title){
-        bookService.searchBook(title);
+    public ResponseEntity<Map<String, Object>> searchBook(@PathVariable String title){
+        return ResponseEntity
+                .ok()
+                .body(bookService.searchBook(title));
     }
 }
