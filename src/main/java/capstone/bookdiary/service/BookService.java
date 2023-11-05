@@ -1,7 +1,12 @@
 package capstone.bookdiary.service;
 
-import capstone.util.TypeConvert;
+import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.entity.BookDiary;
+import capstone.bookdiary.repository.BookDiaryRepository;
+import capstone.bookdiary.util.TypeConvert;
+import java.util.HashMap;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,11 +18,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@RequiredArgsConstructor
 public class BookService {
     @Value("${api-key.library}")
     private String libraryKey;
     @Autowired
     private RestTemplate restTemplate;
+    private final BookDiaryRepository bookDiaryRepository;
 
     public Map<String, Object> searchBook(String title){
         String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title="+title;
@@ -45,5 +52,14 @@ public class BookService {
         ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
         Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
         return json;
+    }
+
+    public Map<String, Object> addBook(BookDto bookDto) {
+        BookDiary savedBookDiary = bookDiaryRepository.save(
+                new BookDiary(bookDto.getTitle(), bookDto.getAuthor(), bookDto.getCoverImageUrl(), bookDto.getIsbn()));
+
+        Map<String, Object> bookDiaryId = new HashMap<>();
+        bookDiaryId.put("bookDiaryId", savedBookDiary.getBookDiaryId());
+        return bookDiaryId;
     }
 }
