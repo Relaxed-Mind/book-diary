@@ -31,4 +31,12 @@ public class DiaryController {
                 .ok()
                 .body(bookService.addBook(bookDto));
     }
+
+    @PostMapping("/diary/scrap")
+    @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
+    private ResponseEntity<Map<String, Object>> addScrap(@RequestBody ScrapDto scrapDto){
+        return ResponseEntity
+                .ok()
+                .body(scrapService.addScrap(scrapDto));
+    }
 }
