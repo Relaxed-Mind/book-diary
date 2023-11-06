@@ -4,6 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class BookDto {
+    private Long memberId;
+
     private String title;
 
     private String author;

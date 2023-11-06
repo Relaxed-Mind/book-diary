@@ -2,7 +2,9 @@ package capstone.bookdiary.service;
 
 import capstone.bookdiary.domain.dto.BookDto;
 import capstone.bookdiary.domain.entity.BookDiary;
+import capstone.bookdiary.domain.entity.Member;
 import capstone.bookdiary.repository.BookDiaryRepository;
+import capstone.bookdiary.repository.MemberRepository;
 import capstone.bookdiary.util.TypeConvert;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +27,7 @@ public class BookService {
     @Autowired
     private RestTemplate restTemplate;
     private final BookDiaryRepository bookDiaryRepository;
+    private final MemberRepository memberRepository;
 
     public Map<String, Object> searchBook(String title){
         String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title="+title;
@@ -55,8 +58,9 @@ public class BookService {
     }
 
     public Map<String, Object> addBook(BookDto bookDto) {
+        Member member = memberRepository.findById(bookDto.getMemberId()).get();
         BookDiary savedBookDiary = bookDiaryRepository.save(
-                new BookDiary(bookDto.getTitle(), bookDto.getAuthor(), bookDto.getCoverImageUrl(), bookDto.getIsbn()));
+                new BookDiary(member, bookDto.getTitle(), bookDto.getAuthor(), bookDto.getCoverImageUrl(), bookDto.getIsbn()));
 
         Map<String, Object> bookDiaryId = new HashMap<>();
         bookDiaryId.put("bookDiaryId", savedBookDiary.getBookDiaryId());
