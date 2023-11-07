@@ -32,6 +32,8 @@ public class BookDiary extends BaseTimeEntity{
 
     private Integer score;
 
+    private String takeaway;
+
     public BookDiary(Member member, String title, String author, String coverImageUrl, String isbn) {
         this.member = member;
         this.title = title;
@@ -40,5 +42,6 @@ public class BookDiary extends BaseTimeEntity{
         this.isbn = isbn;
         this.readingStatus = '0';
         this.score = null;
+        this.takeaway = "";
     }
 }
