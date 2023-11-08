@@ -29,8 +29,8 @@ public class BookService {
     private final BookDiaryRepository bookDiaryRepository;
     private final MemberRepository memberRepository;
 
-    public Map<String, Object> searchBook(String title){
-        String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title="+title;
+    public Map<String, Object> searchBook(String title, Integer pageNo){
+        String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title=\"" +title+ "\"&pageNum="+pageNo;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

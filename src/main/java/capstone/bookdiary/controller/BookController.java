@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping("/search/{title}")
+    @GetMapping("/search/{title}/{pageNo}")
     @Operation(summary = "책 제목 검색", description = "사용자가 책 제목을 넣어 검색합니다.")
-    public ResponseEntity<Map<String, Object>> searchBook(@PathVariable String title){
+    public ResponseEntity<Map<String, Object>> searchBook(@PathVariable String title, @PathVariable Integer pageNo){
         return ResponseEntity
                 .ok()
-                .body(bookService.searchBook(title));
+                .body(bookService.searchBook(title, pageNo));
     }
 
     @GetMapping("/book/{isbn}")
