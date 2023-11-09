@@ -1,7 +1,8 @@
 package capstone.bookdiary.repository;
 
-import capstone.bookdiary.domain.entity.Scrap;
+import capstone.bookdiary.domain.dto.ScrapResponseDto;
+import java.util.List;
 
 public interface ScrapRepositoryCustom {
-    Scrap findByBookDiary(Long bookDiaryId);
+    List<ScrapResponseDto> findByBookDiary(Long bookDiaryId);
 }
