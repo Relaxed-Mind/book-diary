@@ -1,7 +1,7 @@
 package capstone.bookdiary.controller;
 
 import capstone.bookdiary.domain.dto.BookDto;
-import capstone.bookdiary.domain.dto.ScrapDto;
+import capstone.bookdiary.domain.dto.ScrapRequestDto;
 import capstone.bookdiary.service.BookService;
 import capstone.bookdiary.service.ScrapService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,9 +34,9 @@ public class DiaryController {
 
     @PostMapping("/diary/scrap")
     @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
-    private ResponseEntity<Map<String, Object>> addScrap(@RequestBody ScrapDto scrapDto){
+    private ResponseEntity<Map<String, Object>> addScrap(@RequestBody ScrapRequestDto scrapRequestDto){
         return ResponseEntity
                 .ok()
-                .body(scrapService.addScrap(scrapDto));
+                .body(scrapService.addScrap(scrapRequestDto));
     }
 }
