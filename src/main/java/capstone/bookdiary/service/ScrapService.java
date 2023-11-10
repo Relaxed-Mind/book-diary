@@ -3,6 +3,7 @@ package capstone.bookdiary.service;
 import capstone.bookdiary.domain.dto.ScrapRequestDto;
 import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Scrap;
+import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.ScrapRepository;
 import java.util.HashMap;
@@ -16,7 +17,8 @@ public class ScrapService {
     private final BookDiaryRepository bookDiaryRepository;
     private final ScrapRepository scrapRepository;
     public Map<String, Object> addScrap(ScrapRequestDto scrapRequestDto) {
-        BookDiary bookDiary = bookDiaryRepository.findById(scrapRequestDto.getBookDiaryId()).get();
+        BookDiary bookDiary = bookDiaryRepository.findById(scrapRequestDto.getBookDiaryId())
+                .orElseThrow(DataNotFoundException::new);
         Scrap scrap = new Scrap(bookDiary, scrapRequestDto.getContent(), scrapRequestDto.getMemo());
         Scrap savedScrap = scrapRepository.save(scrap);
 
