@@ -1,11 +1,13 @@
 package capstone.bookdiary.exception;
 
+import capstone.bookdiary.exception.error.ErrorCode;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.exception.response.ApiErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 
 @RestControllerAdvice
 public class GlobalControllerAdvice {
@@ -14,9 +16,12 @@ public class GlobalControllerAdvice {
     ResponseEntity<ApiErrorResponse> dataNotFoundExceptionHandle(DataNotFoundException e){
         return ApiErrorResponse.toResponseEntity(e.getErrorCode());
     }
-
     @ExceptionHandler(UserNotFoundException.class)
     ResponseEntity<ApiErrorResponse> userNotFoundExceptionHandle(UserNotFoundException e){
         return ApiErrorResponse.toResponseEntity(e.getErrorCode());
+    }
+    @ExceptionHandler(RestClientException.class)
+    ResponseEntity<ApiErrorResponse> apiRequestExceptionHandle(RestClientException e){
+        return ApiErrorResponse.toResponseEntity(ErrorCode.API_REQUEST_ERROR);
     }
 }
