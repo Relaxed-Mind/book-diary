@@ -3,6 +3,7 @@ package capstone.bookdiary.service;
 import capstone.bookdiary.domain.dto.BookDto;
 import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Member;
+import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.MemberRepository;
 import capstone.bookdiary.util.TypeConvert;
@@ -58,7 +59,8 @@ public class BookService {
     }
 
     public Map<String, Object> addBook(BookDto bookDto) {
-        Member member = memberRepository.findById(bookDto.getMemberId()).get();
+        Member member = memberRepository.findById(bookDto.getMemberId())
+                .orElseThrow(UserNotFoundException::new);
         BookDiary savedBookDiary = bookDiaryRepository.save(
                 new BookDiary(member, bookDto.getTitle(), bookDto.getAuthor(), bookDto.getCoverImageUrl(), bookDto.getIsbn()));
 
