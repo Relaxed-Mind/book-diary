@@ -3,7 +3,9 @@ package capstone.bookdiary.controller;
 import capstone.bookdiary.domain.dto.LoginDto;
 import capstone.bookdiary.service.MemberService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,9 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto) {
-        return memberService.login(loginDto);
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginDto loginDto) {
+        return ResponseEntity
+                .ok()
+                .body(memberService.login(loginDto));
     }
 }
