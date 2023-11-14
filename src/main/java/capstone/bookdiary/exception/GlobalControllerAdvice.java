@@ -2,6 +2,7 @@ package capstone.bookdiary.exception;
 
 import capstone.bookdiary.exception.error.ErrorCode;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
+import capstone.bookdiary.exception.exceptions.EmailDuplicateException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.exception.response.ApiErrorResponse;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,10 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(RestClientException.class)
     ResponseEntity<ApiErrorResponse> apiRequestExceptionHandle(RestClientException e){
         return ApiErrorResponse.toResponseEntity(ErrorCode.API_REQUEST_ERROR);
+    }
+
+    @ExceptionHandler(EmailDuplicateException.class)
+    ResponseEntity<ApiErrorResponse> emailDuplicationExceptionHandle(EmailDuplicateException e){
+        return ApiErrorResponse.toResponseEntity(e.getErrorCode());
     }
 }
