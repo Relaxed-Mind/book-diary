@@ -1,7 +1,11 @@
 package capstone.bookdiary.service;
 
 import capstone.bookdiary.domain.dto.LoginDto;
+import capstone.bookdiary.domain.dto.SignupDto;
+import capstone.bookdiary.domain.entity.Member;
+import capstone.bookdiary.exception.exceptions.EmailDuplicateException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
+import capstone.bookdiary.repository.MemberRepository;
 import capstone.bookdiary.security.CustomUserDetailService;
 import capstone.bookdiary.security.JwtTokenProvider;
 import java.util.Collections;
@@ -18,7 +22,9 @@ public class MemberService {
     private final CustomUserDetailService customUserDetailService;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    public Map<String, Object> login(LoginDto loginDto) {
+    private final MemberRepository memberRepository;
+
+    public Map<String, Object> signin(LoginDto loginDto) {
         Map<String, Object> token = new HashMap<>();
         UserDetails userDetails = customUserDetailService.loadUserByUsername(loginDto.getEmail());
 
@@ -28,5 +34,18 @@ public class MemberService {
         }else{
             throw new UserNotFoundException();
         }
+    }
+
+    public Map<String, Object> signup(SignupDto signupDto) {
+        //이메일 중복 검증
+        if(memberRepository.existsByEmail(signupDto.getEmail())){
+            throw new EmailDuplicateException();
+        }
+        String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
+        Member savedMember = memberRepository.save(new Member(signupDto.getEmail(), encryptedPassword));
+
+        Map<String, Object> memberId = new HashMap<>();
+        memberId.put("memberId", savedMember.getMemberId());
+        return memberId;
     }
 }

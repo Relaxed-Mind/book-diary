@@ -1,6 +1,7 @@
 package capstone.bookdiary.controller;
 
 import capstone.bookdiary.domain.dto.LoginDto;
+import capstone.bookdiary.domain.dto.SignupDto;
 import capstone.bookdiary.service.MemberService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
@@ -19,10 +20,17 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginDto loginDto) {
+    @PostMapping("/signup")
+    public ResponseEntity<Map<String, Object>> signup(@RequestBody SignupDto signupDto){
         return ResponseEntity
                 .ok()
-                .body(memberService.login(loginDto));
+                .body(memberService.signup(signupDto));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<Map<String, Object>> signin(@RequestBody LoginDto loginDto) {
+        return ResponseEntity
+                .ok()
+                .body(memberService.signin(loginDto));
     }
 }
