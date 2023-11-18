@@ -31,7 +31,7 @@ public class BookService {
     private final MemberRepository memberRepository;
 
     public Map<String, Object> searchBook(String title, Integer pageNo){
-        String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title=\"" +title+ "\"&pageNo="+pageNo;
+        String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title=\"" +title+ "\"&pageNo="+pageNo +"&format=json";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -40,9 +40,9 @@ public class BookService {
 
         ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
 
-        //도서관 정보나루 API에서 받아온 xml 형식의 data를 json으로 가공
-        String jsonString = TypeConvert.xmlToJsonString(exchange.getBody());
-        Map<String, Object> json = TypeConvert.JsonStringToJson(jsonString);
+//        String jsonString = TypeConvert.xmlToJsonString(exchange.getBody());
+        Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
+//        Map<String, Object> json = TypeConvert.JsonStringToJson(jsonString);
         return json;
     }
 
