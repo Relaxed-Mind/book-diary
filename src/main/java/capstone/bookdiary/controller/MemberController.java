@@ -5,6 +5,7 @@ import capstone.bookdiary.domain.dto.SignupDto;
 import capstone.bookdiary.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "사용자가 회원가입을 합니다.")
-    public ResponseEntity<Map<String, Object>> signup(@RequestBody SignupDto signupDto){
+    public ResponseEntity<Map<String, Object>> signup(@Valid @RequestBody SignupDto signupDto){
         return ResponseEntity
                 .ok()
                 .body(memberService.signup(signupDto));
