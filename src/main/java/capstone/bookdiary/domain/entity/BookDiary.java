@@ -44,4 +44,11 @@ public class BookDiary extends BaseTimeEntity{
         this.score = null;
         this.takeaway = "";
     }
+
+    public void addTakeaway(String takeaway){
+        this.takeaway = takeaway;
+    }
+    public void addScore(Integer score){
+        this.score = score;
+    }
 }

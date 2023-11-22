@@ -1,11 +1,14 @@
 package capstone.bookdiary.controller;
 
 import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.dto.ScoreDto;
 import capstone.bookdiary.domain.dto.ScrapRequestDto;
+import capstone.bookdiary.domain.dto.TakeawayDto;
 import capstone.bookdiary.service.BookService;
 import capstone.bookdiary.service.ScrapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +41,21 @@ public class DiaryController {
         return ResponseEntity
                 .ok()
                 .body(scrapService.addScrap(scrapRequestDto));
+    }
+
+    @PostMapping("diary/rate")
+    @Operation(summary = "평점 매기기", description = "책을 다 읽고 평점을 매깁니다.")
+    private ResponseEntity<Map<String, Object>> addScore(@Valid @RequestBody ScoreDto scoreDto){
+        return ResponseEntity
+                .ok()
+                .body(bookService.addScore(scoreDto));
+    }
+
+    @PostMapping("/diary/report")
+    @Operation(summary = "감상문 작성", description = "책을 다 읽고 감상문을 작성합니다.")
+    private ResponseEntity<Map<String, Object>> addTakeaway(@RequestBody TakeawayDto takeawayDto){
+        return ResponseEntity
+                .ok()
+                .body(bookService.addTakeaway(takeawayDto));
     }
 }

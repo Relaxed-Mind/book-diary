@@ -1,8 +1,11 @@
 package capstone.bookdiary.service;
 
 import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.dto.ScoreDto;
+import capstone.bookdiary.domain.dto.TakeawayDto;
 import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Member;
+import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.MemberRepository;
@@ -18,6 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -66,6 +70,28 @@ public class BookService {
 
         Map<String, Object> bookDiaryId = new HashMap<>();
         bookDiaryId.put("bookDiaryId", savedBookDiary.getBookDiaryId());
+        return bookDiaryId;
+    }
+
+    @Transactional
+    public Map<String, Object> addScore(ScoreDto scoreDto){
+        BookDiary bookDiary = bookDiaryRepository.findById(scoreDto.getBookDiaryId())
+                .orElseThrow(DataNotFoundException::new);
+        bookDiary.addScore(scoreDto.getScore());
+
+        Map<String, Object> bookDiaryId = new HashMap<>();
+        bookDiaryId.put("bookDiaryId", bookDiary.getBookDiaryId());
+        return bookDiaryId;
+    }
+
+    @Transactional
+    public Map<String, Object> addTakeaway(TakeawayDto takeawayDto) {
+        BookDiary bookDiary = bookDiaryRepository.findById(takeawayDto.getBookDiaryId())
+                .orElseThrow(DataNotFoundException::new);
+        bookDiary.addTakeaway(takeawayDto.getTakeaway());
+
+        Map<String, Object> bookDiaryId = new HashMap<>();
+        bookDiaryId.put("bookDiaryId", bookDiary.getBookDiaryId());
         return bookDiaryId;
     }
 }
