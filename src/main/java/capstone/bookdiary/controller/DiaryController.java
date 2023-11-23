@@ -12,6 +12,8 @@ import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,14 @@ public class DiaryController {
 
     private final BookService bookService;
     private final ScrapService scrapService;
+
+    @GetMapping("/diary/{memberId}")
+    @Operation(summary = "내가 등록한 다이어리(책)들 조회", description = "내가 등록한 다이어리(책)을 간단히 조회합니다.")
+    private ResponseEntity<Map<String, Object>> getMyDiary(@PathVariable Long memberId){
+        return ResponseEntity
+                .ok()
+                .body(bookService.getMyDiary(memberId));
+    }
 
     @PostMapping("/diary")
     @Operation(summary = "내 서재 등록", description = "해당 isbn에 해당되는 책을 내 서재에 등록합니다.")
@@ -43,7 +53,7 @@ public class DiaryController {
                 .body(scrapService.addScrap(scrapRequestDto));
     }
 
-    @PostMapping("diary/rate")
+    @PostMapping("/diary/rate")
     @Operation(summary = "평점 매기기", description = "책을 다 읽고 평점을 매깁니다.")
     private ResponseEntity<Map<String, Object>> addScore(@Valid @RequestBody ScoreDto scoreDto){
         return ResponseEntity

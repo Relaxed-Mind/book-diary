@@ -1,5 +1,6 @@
 package capstone.bookdiary.service;
 
+import capstone.bookdiary.domain.dto.BookDiaryTitleDto;
 import capstone.bookdiary.domain.dto.BookDto;
 import capstone.bookdiary.domain.dto.ScoreDto;
 import capstone.bookdiary.domain.dto.TakeawayDto;
@@ -10,7 +11,9 @@ import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.MemberRepository;
 import capstone.bookdiary.util.TypeConvert;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +96,21 @@ public class BookService {
         Map<String, Object> bookDiaryId = new HashMap<>();
         bookDiaryId.put("bookDiaryId", bookDiary.getBookDiaryId());
         return bookDiaryId;
+    }
+
+    public Map<String, Object> getMyDiary(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(UserNotFoundException::new);
+
+        List<BookDiary> bookDiaryList = bookDiaryRepository.findAllByMember(member);
+        List<BookDiaryTitleDto> bookDiaryTitleDtoList = new ArrayList<>();
+        for (BookDiary bookDiary : bookDiaryList) {
+            bookDiaryTitleDtoList.add(new BookDiaryTitleDto(bookDiary.getTitle(), bookDiary.getAuthor(),
+                    bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatusYN(),
+                    bookDiary.getScore()));
+        }
+        Map<String, Object> bookDiaryTitleList = new HashMap<>();
+        bookDiaryTitleList.put("response", bookDiaryTitleDtoList);
+        return bookDiaryTitleList;
     }
 }
