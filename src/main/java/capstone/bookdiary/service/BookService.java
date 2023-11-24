@@ -8,61 +8,45 @@ import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Member;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
+import capstone.bookdiary.feign.BookClient;
+import capstone.bookdiary.feign.param.BookDetailParam;
+import capstone.bookdiary.feign.param.BookSearchParam;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.MemberRepository;
-import capstone.bookdiary.util.TypeConvert;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
     @Value("${api-key.library}")
     private String libraryKey;
-    @Autowired
-    private RestTemplate restTemplate;
-    private final BookDiaryRepository bookDiaryRepository;
+    private final BookClient bookClient;
     private final MemberRepository memberRepository;
+    private final BookDiaryRepository bookDiaryRepository;
 
     public Map<String, Object> searchBook(String title, Integer pageNo){
-        String bookSearchApiUrl = "http://data4library.kr/api/srchBooks?authKey="+libraryKey+"&title=\"" +title+ "\"&pageNo="+pageNo +"&format=json";
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
-
-//        String jsonString = TypeConvert.xmlToJsonString(exchange.getBody());
-        Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
-//        Map<String, Object> json = TypeConvert.JsonStringToJson(jsonString);
-        return json;
+        return bookClient.getBookList(new BookSearchParam(libraryKey, title, pageNo, "json"));
     }
 
     public Map<String, Object> viewBookInfo(String isbn){
-        String bookSearchApiUrl = "http://data4library.kr/api/srchDtlList?authKey="+libraryKey+"&isbn13="+isbn+"&format=json";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        return bookClient.getDetailBook(new BookDetailParam(libraryKey, isbn, "json"));
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
-        Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
-        return json;
+//        String bookSearchApiUrl = "http://data4library.kr/api/srchDtlList?authKey="+libraryKey+"&isbn13="+isbn+"&format=json";
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//
+//        ResponseEntity<String> exchange = restTemplate.exchange(bookSearchApiUrl, HttpMethod.GET, entity, String.class);
+//        Map<String, Object> json = TypeConvert.JsonStringToJson(exchange.getBody());
+//        return json;
     }
 
     public Map<String, Object> addBook(BookDto bookDto) {
