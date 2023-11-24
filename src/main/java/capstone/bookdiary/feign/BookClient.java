@@ -2,7 +2,6 @@ package capstone.bookdiary.feign;
 
 import capstone.bookdiary.feign.param.BookDetailParam;
 import capstone.bookdiary.feign.param.BookSearchParam;
-import capstone.bookdiary.feign.param.KeywordParam;
 import java.util.Map;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
