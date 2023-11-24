@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -126,8 +127,12 @@ public class BookService {
 
         //스크랩당 이미지 뽑기
         for (Scrap scrap : scraps) {
-            Image image = imageRepository.findByScrap(scrap);
-            scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(),image.getImageUrl()));
+            Optional<Image> optionalImage = imageRepository.findByScrap(scrap);
+            if(optionalImage.isEmpty()){
+                scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(), ""));
+            }else{
+                scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(),optionalImage.get().getImageUrl()));
+            }
         }
 
         //질문 뽑기
