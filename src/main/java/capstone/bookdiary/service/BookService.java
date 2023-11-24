@@ -1,18 +1,27 @@
 package capstone.bookdiary.service;
 
+import capstone.bookdiary.domain.dto.BookDiaryDto;
 import capstone.bookdiary.domain.dto.BookDiaryTitleDto;
 import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.dto.QuestionDto;
 import capstone.bookdiary.domain.dto.ScoreDto;
+import capstone.bookdiary.domain.dto.ScrapImageDto;
 import capstone.bookdiary.domain.dto.TakeawayDto;
 import capstone.bookdiary.domain.entity.BookDiary;
+import capstone.bookdiary.domain.entity.Image;
 import capstone.bookdiary.domain.entity.Member;
+import capstone.bookdiary.domain.entity.Question;
+import capstone.bookdiary.domain.entity.Scrap;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.feign.BookClient;
 import capstone.bookdiary.feign.param.BookDetailParam;
 import capstone.bookdiary.feign.param.BookSearchParam;
 import capstone.bookdiary.repository.BookDiaryRepository;
+import capstone.bookdiary.repository.ImageRepository;
 import capstone.bookdiary.repository.MemberRepository;
+import capstone.bookdiary.repository.QuestionRepository;
+import capstone.bookdiary.repository.ScrapRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +39,9 @@ public class BookService {
     private final BookClient bookClient;
     private final MemberRepository memberRepository;
     private final BookDiaryRepository bookDiaryRepository;
+    private final ScrapRepository scrapRepository;
+    private final QuestionRepository questionRepository;
+    private final ImageRepository imageRepository;
 
     public Map<String, Object> searchBook(String title, Integer pageNo){
         return bookClient.getBookList(new BookSearchParam(libraryKey, title, pageNo, "json"));
@@ -96,5 +108,37 @@ public class BookService {
         Map<String, Object> bookDiaryTitleList = new HashMap<>();
         bookDiaryTitleList.put("response", bookDiaryTitleDtoList);
         return bookDiaryTitleList;
+    }
+
+    public Map<String, Object> getSpecificDiary(Long bookDiaryId){
+        Map<String, Object> response = new HashMap<>();
+
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
+                .orElseThrow(DataNotFoundException::new);
+
+        BookDiaryDto bookDiaryDto = new BookDiaryDto(bookDiary.getTitle(), bookDiary.getAuthor(),
+                bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatusYN(), bookDiary.getScore(),
+                bookDiary.getTakeaway());
+        List<Scrap> scraps = scrapRepository.findAllByBookDiary(bookDiary);
+        List<Question> questions = questionRepository.findAllByBookDiary(bookDiary);
+        List<ScrapImageDto> scrapImageDtos = new ArrayList<>();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+
+        //스크랩당 이미지 뽑기
+        for (Scrap scrap : scraps) {
+            Image image = imageRepository.findByScrap(scrap);
+            scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(),image.getImageUrl()));
+        }
+
+        //질문 뽑기
+        for (Question question : questions) {
+            questionDtos.add(new QuestionDto(question.getQuestion(), question.getAnswer(), question.getDegree()));
+        }
+
+        response.put("bookDiary", bookDiaryDto);
+        response.put("scraps", scrapImageDtos);
+        response.put("questions", questionDtos);
+
+        return response;
     }
 }

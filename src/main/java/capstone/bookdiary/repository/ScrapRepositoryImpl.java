@@ -20,7 +20,7 @@ public class ScrapRepositoryImpl implements ScrapRepositoryCustom{
         return queryFactory
                 .select(new QScrapResponseDto(scrap.content, scrap.memo))
                 .from(scrap)
-                .leftJoin(bookDiary, scrap.bookDiary)
+                .leftJoin(scrap.bookDiary, bookDiary)
                 .where(bookDiary.bookDiaryId.eq(bookDiaryId))
                 .fetch();
     }

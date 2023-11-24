@@ -68,4 +68,13 @@ public class DiaryController {
                 .ok()
                 .body(bookService.addTakeaway(takeawayDto));
     }
+
+    @GetMapping("/diary/specific/{bookDiaryId}")
+    @Operation(summary = "독후감 상세보기", description = "특정 독후감을 상세보기 합니다.")
+    private ResponseEntity<Map<String, Object>> getSpecificDiary(@PathVariable Long bookDiaryId){
+        return ResponseEntity
+                .ok()
+                .body(bookService.getSpecificDiary(bookDiaryId));
+    }
+
 }
