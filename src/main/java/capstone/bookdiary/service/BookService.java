@@ -102,8 +102,8 @@ public class BookService {
         List<BookDiary> bookDiaryList = bookDiaryRepository.findAllByMember(member);
         List<BookDiaryTitleDto> bookDiaryTitleDtoList = new ArrayList<>();
         for (BookDiary bookDiary : bookDiaryList) {
-            bookDiaryTitleDtoList.add(new BookDiaryTitleDto(bookDiary.getTitle(), bookDiary.getAuthor(),
-                    bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatusYN(),
+            bookDiaryTitleDtoList.add(new BookDiaryTitleDto(bookDiary.getBookDiaryId(), bookDiary.getTitle(), bookDiary.getAuthor(),
+                    bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatus(),
                     bookDiary.getScore()));
         }
         Map<String, Object> bookDiaryTitleList = new HashMap<>();
@@ -118,7 +118,7 @@ public class BookService {
                 .orElseThrow(DataNotFoundException::new);
 
         BookDiaryDto bookDiaryDto = new BookDiaryDto(bookDiary.getTitle(), bookDiary.getAuthor(),
-                bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatusYN(), bookDiary.getScore(),
+                bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatus(), bookDiary.getScore(),
                 bookDiary.getTakeaway());
         List<Scrap> scraps = scrapRepository.findAllByBookDiary(bookDiary);
         List<Question> questions = questionRepository.findAllByBookDiary(bookDiary);

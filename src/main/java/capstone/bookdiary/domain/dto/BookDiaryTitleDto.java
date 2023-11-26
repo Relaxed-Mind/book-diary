@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class BookDiaryTitleDto {
+    private Long bookDiaryId;
     private String title;
 
     private String author;
@@ -12,17 +13,18 @@ public class BookDiaryTitleDto {
 
     private String isbn;
 
-    private Character readingStatusYN;
+    private Character readingStatus;
 
     private Integer score;
 
-    public BookDiaryTitleDto(String title, String author, String coverImageUrl, String isbn,
-                             Character readingStatusYN, Integer score) {
+    public BookDiaryTitleDto(Long bookDiaryId, String title, String author, String coverImageUrl, String isbn,
+                             Character readingStatus, Integer score) {
+        this.bookDiaryId = bookDiaryId;
         this.title = title;
         this.author = author;
         this.coverImageUrl = coverImageUrl;
         this.isbn = isbn;
-        this.readingStatusYN = readingStatusYN;
+        this.readingStatus = readingStatus;
         this.score = score;
     }
 }
