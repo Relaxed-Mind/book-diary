@@ -47,12 +47,12 @@ public class DiaryController {
                 .body(bookService.addBook(bookDto));
     }
 
-    @PostMapping("/diary/scrap")
+    @PatchMapping("/diary/{bookDiaryId}/scrap")
     @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
-    private ResponseEntity<Map<String, Object>> addScrap(@RequestBody ScrapRequestDto scrapRequestDto){
+    private ResponseEntity<Map<String, Object>> addScrap(@PathVariable Long bookDiaryId, @RequestBody ScrapRequestDto scrapRequestDto){
         return ResponseEntity
                 .ok()
-                .body(scrapService.addScrap(scrapRequestDto));
+                .body(scrapService.addScrap(bookDiaryId, scrapRequestDto));
     }
 
     @PatchMapping("/diary/{bookDiaryId}/rate")

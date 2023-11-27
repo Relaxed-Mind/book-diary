@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 public class ScrapService {
     private final BookDiaryRepository bookDiaryRepository;
     private final ScrapRepository scrapRepository;
-    public Map<String, Object> addScrap(ScrapRequestDto scrapRequestDto) {
-        BookDiary bookDiary = bookDiaryRepository.findById(scrapRequestDto.getBookDiaryId())
+    public Map<String, Object> addScrap(Long bookDiaryId, ScrapRequestDto scrapRequestDto) {
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
                 .orElseThrow(DataNotFoundException::new);
         Scrap scrap = new Scrap(bookDiary, scrapRequestDto.getContent(), scrapRequestDto.getMemo());
         Scrap savedScrap = scrapRepository.save(scrap);
