@@ -51,4 +51,7 @@ public class BookDiary extends BaseTimeEntity{
     public void addScore(Integer score){
         this.score = score;
     }
+    public void changeReadingStatus(Character readingStatus){
+        this.readingStatus = readingStatus;
+    }
 }

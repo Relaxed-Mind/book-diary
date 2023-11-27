@@ -1,6 +1,7 @@
 package capstone.bookdiary.controller;
 
 import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.dto.ReadingStatusDto;
 import capstone.bookdiary.domain.dto.ScoreDto;
 import capstone.bookdiary.domain.dto.ScrapRequestDto;
 import capstone.bookdiary.domain.dto.TakeawayDto;
@@ -13,6 +14,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,21 +55,31 @@ public class DiaryController {
                 .body(scrapService.addScrap(scrapRequestDto));
     }
 
-    @PostMapping("/diary/rate")
+    @PatchMapping("/diary/{bookDiaryId}/rate")
     @Operation(summary = "평점 매기기", description = "책을 다 읽고 평점을 매깁니다.")
-    private ResponseEntity<Map<String, Object>> addScore(@Valid @RequestBody ScoreDto scoreDto){
+    private ResponseEntity<Map<String, Object>> addScore(@PathVariable Long bookDiaryId, @Valid @RequestBody ScoreDto scoreDto){
         return ResponseEntity
                 .ok()
-                .body(bookService.addScore(scoreDto));
+                .body(bookService.addScore(bookDiaryId, scoreDto));
     }
 
-    @PostMapping("/diary/report")
+    @PatchMapping("/diary/{bookDiaryId}/report")
     @Operation(summary = "감상문 작성", description = "책을 다 읽고 감상문을 작성합니다.")
-    private ResponseEntity<Map<String, Object>> addTakeaway(@RequestBody TakeawayDto takeawayDto){
+    private ResponseEntity<Map<String, Object>> addTakeaway(@PathVariable Long bookDiaryId, @RequestBody TakeawayDto takeawayDto){
         return ResponseEntity
                 .ok()
-                .body(bookService.addTakeaway(takeawayDto));
+                .body(bookService.addTakeaway(bookDiaryId, takeawayDto));
     }
+
+    @PatchMapping("/diary/{bookDiaryId}/reading-status")
+    @Operation(summary = "책 상태 변경", description = "0: 담아놓은 상태, 1: 읽는 중, 2: 다 읽음")
+    private ResponseEntity<Map<String, Object>> changeReadingStatus(@PathVariable Long bookDiaryId, @RequestBody
+                                                                    ReadingStatusDto readingStatusDto){
+        return ResponseEntity
+                .ok()
+                .body(bookService.changeReadingStatus(bookDiaryId, readingStatusDto));
+    }
+
 
     @GetMapping("/diary/specific/{bookDiaryId}")
     @Operation(summary = "독후감 상세보기", description = "특정 독후감을 상세보기 합니다.")

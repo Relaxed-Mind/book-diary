@@ -4,6 +4,7 @@ import capstone.bookdiary.domain.dto.BookDiaryDto;
 import capstone.bookdiary.domain.dto.BookDiaryTitleDto;
 import capstone.bookdiary.domain.dto.BookDto;
 import capstone.bookdiary.domain.dto.QuestionDto;
+import capstone.bookdiary.domain.dto.ReadingStatusDto;
 import capstone.bookdiary.domain.dto.ScoreDto;
 import capstone.bookdiary.domain.dto.ScrapImageDto;
 import capstone.bookdiary.domain.dto.TakeawayDto;
@@ -74,25 +75,36 @@ public class BookService {
     }
 
     @Transactional
-    public Map<String, Object> addScore(ScoreDto scoreDto){
-        BookDiary bookDiary = bookDiaryRepository.findById(scoreDto.getBookDiaryId())
+    public Map<String, Object> addScore(Long bookDiaryId, ScoreDto scoreDto){
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
                 .orElseThrow(DataNotFoundException::new);
         bookDiary.addScore(scoreDto.getScore());
 
-        Map<String, Object> bookDiaryId = new HashMap<>();
-        bookDiaryId.put("bookDiaryId", bookDiary.getBookDiaryId());
-        return bookDiaryId;
+        Map<String, Object> bookDiaryMap = new HashMap<>();
+        bookDiaryMap.put("bookDiaryId", bookDiary.getBookDiaryId());
+        return bookDiaryMap;
     }
 
     @Transactional
-    public Map<String, Object> addTakeaway(TakeawayDto takeawayDto) {
-        BookDiary bookDiary = bookDiaryRepository.findById(takeawayDto.getBookDiaryId())
+    public Map<String, Object> addTakeaway(Long bookDiaryId, TakeawayDto takeawayDto) {
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
                 .orElseThrow(DataNotFoundException::new);
         bookDiary.addTakeaway(takeawayDto.getTakeaway());
 
-        Map<String, Object> bookDiaryId = new HashMap<>();
-        bookDiaryId.put("bookDiaryId", bookDiary.getBookDiaryId());
-        return bookDiaryId;
+        Map<String, Object> bookDiaryMap = new HashMap<>();
+        bookDiaryMap.put("bookDiaryId", bookDiary.getBookDiaryId());
+        return bookDiaryMap;
+    }
+
+    @Transactional
+    public Map<String, Object> changeReadingStatus(Long bookDiaryId, ReadingStatusDto readingStatusDto){
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
+                .orElseThrow(DataNotFoundException::new);
+        bookDiary.changeReadingStatus(readingStatusDto.getReadingStatus());
+
+        Map<String, Object> bookDiaryMap = new HashMap<>();
+        bookDiaryMap.put("bookDiaryId", bookDiary.getBookDiaryId());
+        return bookDiaryMap;
     }
 
     public Map<String, Object> getMyDiary(Long memberId){
