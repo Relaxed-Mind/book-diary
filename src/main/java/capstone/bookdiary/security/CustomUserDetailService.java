@@ -25,8 +25,13 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return memberRepository.findByEmail(email)
-                .map(this::createUser)
+                .map(this::createCustomUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException(email + " -> 데이터베이스에 존재하지 않습니다."));
+
+    }
+
+    private CustomUserDetails createCustomUserDetails(Member member){
+        return new CustomUserDetails(member);
     }
 
     /**

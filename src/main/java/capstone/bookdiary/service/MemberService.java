@@ -7,12 +7,12 @@ import capstone.bookdiary.exception.exceptions.EmailDuplicateException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.repository.MemberRepository;
 import capstone.bookdiary.security.CustomUserDetailService;
+import capstone.bookdiary.security.CustomUserDetails;
 import capstone.bookdiary.security.JwtTokenProvider;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +26,9 @@ public class MemberService {
 
     public Map<String, Object> signin(LoginDto loginDto) {
         Map<String, Object> token = new HashMap<>();
-        UserDetails userDetails = customUserDetailService.loadUserByUsername(loginDto.getEmail());
-
+        CustomUserDetails userDetails = (CustomUserDetails)customUserDetailService.loadUserByUsername(loginDto.getEmail());
         if(passwordEncoder.matches(loginDto.getPassword(), userDetails.getPassword())){
-            token.put("token", jwtTokenProvider.createToken(userDetails.getUsername(), Collections.singletonList("ROLE_USER")));
+            token.put("token", jwtTokenProvider.createToken(userDetails.getMemberId(), userDetails.getUsername(), Collections.singletonList("ROLE_USER")));
             return token;
         }else{
             throw new UserNotFoundException();
