@@ -172,4 +172,17 @@ public class BookService {
 
         return response;
     }
+
+    public Map<String, Object> isAdded(Long memberId, String isbn) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(UserNotFoundException::new);
+
+        Map<String, Object> response = new HashMap<>();
+        if(bookDiaryRepository.existsByIsbn(isbn)){
+            response.put("response", "YES");
+        }else{
+            response.put("response", "NO");
+        }
+        return response;
+    }
 }

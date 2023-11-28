@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookDiaryRepository extends JpaRepository<BookDiary, Long> {
     Page<BookDiary> findAllByMember(Member member, Pageable pageable);
+
+    boolean existsByIsbn(String isbn);
 }

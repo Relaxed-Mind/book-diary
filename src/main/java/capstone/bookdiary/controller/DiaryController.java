@@ -40,6 +40,14 @@ public class DiaryController {
                 .body(bookService.getMyDiary(memberId, pageNo));
     }
 
+    @GetMapping("/diary/{memberId}/{isbn}")
+    @Operation(summary = "내가 등록한 책인지 확인", description = "이미 등록됐으면 YES, 아니면 NO 리턴")
+    private ResponseEntity<Map<String, Object>> isAdded(@PathVariable Long memberId, @PathVariable String isbn){
+        return ResponseEntity
+                .ok()
+                .body(bookService.isAdded(memberId, isbn));
+    }
+
     @PostMapping("/diary")
     @Operation(summary = "내 서재 등록", description = "해당 isbn에 해당되는 책을 내 서재에 등록합니다.")
     private ResponseEntity<Map<String,Object>> addBook(@RequestBody BookDto bookDto){
