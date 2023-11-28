@@ -3,6 +3,8 @@ package capstone.bookdiary.service;
 import capstone.bookdiary.domain.dto.BookDiaryDto;
 import capstone.bookdiary.domain.dto.BookDiaryTitleDto;
 import capstone.bookdiary.domain.dto.BookDto;
+import capstone.bookdiary.domain.dto.DataWithPageDto;
+import capstone.bookdiary.domain.dto.PageInfoDto;
 import capstone.bookdiary.domain.dto.QuestionDto;
 import capstone.bookdiary.domain.dto.ReadingStatusDto;
 import capstone.bookdiary.domain.dto.ScoreDto;
@@ -30,6 +32,8 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,19 +111,29 @@ public class BookService {
         return bookDiaryMap;
     }
 
-    public Map<String, Object> getMyDiary(Long memberId){
+    public Map<String, Object> getMyDiary(Long memberId, Integer pageNo){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(UserNotFoundException::new);
+        //페이징
+        PageRequest pageRequest = PageRequest.of(pageNo-1, 20);
+        Page<BookDiary> bookDiaries = bookDiaryRepository.findAllByMember(member, pageRequest);
+        List<BookDiary> bookDiaryList = bookDiaries.getContent();
 
-        List<BookDiary> bookDiaryList = bookDiaryRepository.findAllByMember(member);
+        //bookDiary Data 가공
         List<BookDiaryTitleDto> bookDiaryTitleDtoList = new ArrayList<>();
         for (BookDiary bookDiary : bookDiaryList) {
             bookDiaryTitleDtoList.add(new BookDiaryTitleDto(bookDiary.getBookDiaryId(), bookDiary.getTitle(), bookDiary.getAuthor(),
                     bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatus(),
                     bookDiary.getScore()));
         }
+
+        //page 정보 가공
+        PageInfoDto pageInfo = new PageInfoDto(pageNo, 20, bookDiaries.getTotalPages(), bookDiaries.getTotalPages());
+
+        //response 가공
         Map<String, Object> bookDiaryTitleList = new HashMap<>();
-        bookDiaryTitleList.put("response", bookDiaryTitleDtoList);
+        DataWithPageDto dataWithPageDto = new DataWithPageDto<>(bookDiaryTitleDtoList, pageInfo);
+        bookDiaryTitleList.put("response", dataWithPageDto);
         return bookDiaryTitleList;
     }
 

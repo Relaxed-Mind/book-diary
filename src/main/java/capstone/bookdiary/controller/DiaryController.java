@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,10 +34,10 @@ public class DiaryController {
 
     @GetMapping("/diary/{memberId}")
     @Operation(summary = "내가 등록한 다이어리(책)들 조회", description = "내가 등록한 다이어리(책)을 간단히 조회합니다.")
-    private ResponseEntity<Map<String, Object>> getMyDiary(@PathVariable Long memberId){
+    private ResponseEntity<Map<String, Object>> getMyDiary(@PathVariable Long memberId, @RequestParam Integer pageNo){
         return ResponseEntity
                 .ok()
-                .body(bookService.getMyDiary(memberId));
+                .body(bookService.getMyDiary(memberId, pageNo));
     }
 
     @PostMapping("/diary")
