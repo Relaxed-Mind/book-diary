@@ -174,15 +174,18 @@ public class BookService {
     }
 
     public Map<String, Object> isAdded(Long memberId, String isbn) {
+        Map<String, Object> response = new HashMap<>();
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(UserNotFoundException::new);
 
-        Map<String, Object> response = new HashMap<>();
-        if(bookDiaryRepository.existsByIsbn(isbn)){
-            response.put("response", "YES");
+        Optional<BookDiary> bookDiary = bookDiaryRepository.findByMemberAndIsbn(member, isbn);
+        if(bookDiary.isEmpty()){
+            response.put("bookDiaryId", -1);
         }else{
-            response.put("response", "NO");
+            response.put("bookDiaryId", bookDiary.get().getBookDiaryId());
         }
+
         return response;
     }
 }

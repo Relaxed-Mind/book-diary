@@ -42,7 +42,7 @@ public class DiaryController {
     }
 
     @GetMapping("/diary/{memberId}/{isbn}")
-    @Operation(summary = "내가 등록한 책인지 확인", description = "이미 등록됐으면 YES, 아니면 NO 리턴")
+    @Operation(summary = "내가 등록한 책인지 확인", description = "이미 등록 돼있으면 bookDiaryId를 return. 등록 안 돼있으면 -1 리턴")
     private ResponseEntity<Map<String, Object>> isAdded(@PathVariable Long memberId, @PathVariable String isbn){
         return ResponseEntity
                 .ok()
