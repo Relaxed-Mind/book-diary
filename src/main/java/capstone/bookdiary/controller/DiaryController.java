@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,12 +57,20 @@ public class DiaryController {
                 .body(bookService.addBook(bookDto));
     }
 
-    @PatchMapping("/diary/{bookDiaryId}/scrap")
+    @PostMapping("/diary/{bookDiaryId}/scrap")
     @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
     private ResponseEntity<Map<String, Object>> addScrap(@PathVariable Long bookDiaryId, @RequestBody ScrapRequestDto scrapRequestDto){
         return ResponseEntity
                 .ok()
                 .body(scrapService.addScrap(bookDiaryId, scrapRequestDto));
+    }
+
+    @PutMapping("/diary/{scrapId}")
+    @Operation(summary = "스크랩 수정", description = "스크랩과 메모를 수정합니다.")
+    private ResponseEntity<Map<String, Object>> modifyScrap(@PathVariable Long scrapId, @RequestBody ScrapRequestDto scrapRequestDto){
+        return ResponseEntity
+                .ok()
+                .body(scrapService.modifyScrap(scrapId, scrapRequestDto));
     }
 
     @PatchMapping("/diary/{bookDiaryId}/rate")

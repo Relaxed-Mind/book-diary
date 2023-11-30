@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +26,17 @@ public class ScrapService {
         Map<String, Object> scrapId = new HashMap<>();
         scrapId.put("scrapId", savedScrap.getScrapId());
         return scrapId;
+    }
+
+    @Transactional
+    public Map<String, Object> modifyScrap(Long scrapId, ScrapRequestDto scrapRequestDto){
+        Scrap scrap = scrapRepository.findById(scrapId)
+                .orElseThrow(DataNotFoundException::new);
+        scrap.modifyContent(scrapRequestDto.getContent());
+        scrap.modifyMemo(scrapRequestDto.getMemo());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("scrapId", scrapId);
+        return response;
     }
 }

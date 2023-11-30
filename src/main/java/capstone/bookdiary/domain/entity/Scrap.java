@@ -30,4 +30,11 @@ public class Scrap extends BaseTimeEntity {
         this.content = content;
         this.memo = memo;
     }
+
+    public void modifyContent(String content){
+        this.content = content;
+    }
+    public void modifyMemo(String memo){
+        this.memo = memo;
+    }
 }

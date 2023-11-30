@@ -155,9 +155,9 @@ public class BookService {
         for (Scrap scrap : scraps) {
             Optional<Image> optionalImage = imageRepository.findByScrap(scrap);
             if(optionalImage.isEmpty()){
-                scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(), ""));
+                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(), ""));
             }else{
-                scrapImageDtos.add(new ScrapImageDto(scrap.getContent(), scrap.getMemo(),optionalImage.get().getImageUrl()));
+                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(),optionalImage.get().getImageUrl()));
             }
         }
 
