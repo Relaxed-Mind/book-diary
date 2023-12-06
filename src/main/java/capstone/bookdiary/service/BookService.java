@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,7 +116,7 @@ public class BookService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(UserNotFoundException::new);
         //페이징
-        PageRequest pageRequest = PageRequest.of(pageNo-1, 20);
+        PageRequest pageRequest = PageRequest.of(pageNo-1, 20, Sort.by("createdTime").descending());
         Page<BookDiary> bookDiaries = bookDiaryRepository.findAllByMember(member, pageRequest);
         List<BookDiary> bookDiaryList = bookDiaries.getContent();
 
