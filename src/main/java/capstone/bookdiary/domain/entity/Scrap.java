@@ -25,10 +25,13 @@ public class Scrap extends BaseTimeEntity {
 
     private String memo;
 
-    public Scrap(BookDiary bookDiary, String content, String memo) {
+    private Integer page;
+
+    public Scrap(BookDiary bookDiary, String content, String memo, Integer page) {
         this.bookDiary = bookDiary;
         this.content = content;
         this.memo = memo;
+        this.page = page;
     }
 
     public void modifyContent(String content){

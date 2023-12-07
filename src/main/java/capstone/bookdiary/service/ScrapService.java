@@ -20,7 +20,7 @@ public class ScrapService {
     public Map<String, Object> addScrap(Long bookDiaryId, ScrapRequestDto scrapRequestDto) {
         BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
                 .orElseThrow(DataNotFoundException::new);
-        Scrap scrap = new Scrap(bookDiary, scrapRequestDto.getContent(), scrapRequestDto.getMemo());
+        Scrap scrap = new Scrap(bookDiary, scrapRequestDto.getContent(), scrapRequestDto.getMemo(), scrapRequestDto.getPage());
         Scrap savedScrap = scrapRepository.save(scrap);
 
         Map<String, Object> scrapId = new HashMap<>();

@@ -59,7 +59,7 @@ public class DiaryController {
 
     @PostMapping("/diary/{bookDiaryId}/scrap")
     @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
-    private ResponseEntity<Map<String, Object>> addScrap(@PathVariable Long bookDiaryId, @RequestBody ScrapRequestDto scrapRequestDto){
+    private ResponseEntity<Map<String, Object>> addScrap(@PathVariable Long bookDiaryId, @Valid @RequestBody ScrapRequestDto scrapRequestDto){
         return ResponseEntity
                 .ok()
                 .body(scrapService.addScrap(bookDiaryId, scrapRequestDto));
