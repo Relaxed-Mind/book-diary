@@ -58,7 +58,7 @@ public class DiaryController {
     }
 
     @PostMapping("/diary/{bookDiaryId}/scrap")
-    @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다.")
+    @Operation(summary = "스크랩 추가", description = "스크랩과 메모를 추가합니다. (이때 페이지 안 넣으면 null 들어감)")
     private ResponseEntity<Map<String, Object>> addScrap(@PathVariable Long bookDiaryId, @Valid @RequestBody ScrapRequestDto scrapRequestDto){
         return ResponseEntity
                 .ok()
@@ -100,7 +100,7 @@ public class DiaryController {
 
 
     @GetMapping("/diary/specific/{bookDiaryId}")
-    @Operation(summary = "독후감 상세보기", description = "특정 독후감을 상세보기 합니다.")
+    @Operation(summary = "독후감 상세보기", description = "특정 독후감을 상세보기 합니다. (스크랩은 생성시간 기준 null 우선 오름차순)")
     private ResponseEntity<Map<String, Object>> getSpecificDiary(@PathVariable Long bookDiaryId){
         return ResponseEntity
                 .ok()

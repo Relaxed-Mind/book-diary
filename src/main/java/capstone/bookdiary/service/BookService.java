@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -147,7 +148,7 @@ public class BookService {
         BookDiaryDto bookDiaryDto = new BookDiaryDto(bookDiary.getTitle(), bookDiary.getAuthor(),
                 bookDiary.getCoverImageUrl(), bookDiary.getIsbn(), bookDiary.getReadingStatus(), bookDiary.getScore(),
                 bookDiary.getTakeaway());
-        List<Scrap> scraps = scrapRepository.findAllByBookDiary(bookDiary);
+        List<Scrap> scraps = scrapRepository.findAllByBookDiary(bookDiary, Sort.by(Direction.ASC, "page"));
         List<Question> questions = questionRepository.findAllByBookDiary(bookDiary);
         List<ScrapImageDto> scrapImageDtos = new ArrayList<>();
         List<QuestionDto> questionDtos = new ArrayList<>();
@@ -156,9 +157,9 @@ public class BookService {
         for (Scrap scrap : scraps) {
             Optional<Image> optionalImage = imageRepository.findByScrap(scrap);
             if(optionalImage.isEmpty()){
-                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(), ""));
+                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(), scrap.getPage(), ""));
             }else{
-                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(),optionalImage.get().getImageUrl()));
+                scrapImageDtos.add(new ScrapImageDto(scrap.getScrapId(), scrap.getContent(), scrap.getMemo(), scrap.getPage(), optionalImage.get().getImageUrl()));
             }
         }
 
