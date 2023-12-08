@@ -1,5 +1,6 @@
 package capstone.bookdiary.service;
 
+import capstone.bookdiary.domain.dto.QuestionDto;
 import capstone.bookdiary.domain.dto.ScrapResponseDto;
 import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Question;
@@ -7,6 +8,7 @@ import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.QuestionRepository;
 import capstone.bookdiary.repository.ScrapRepository;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,5 +72,21 @@ public class QuestionService {
 
         //2차 질문 return
         return request;
+    }
+
+    public Map<String, Object> getQuestionsAndAnswers(Long bookDiaryId) {
+        BookDiary bookDiary = bookDiaryRepository.findById(bookDiaryId)
+                .orElseThrow(DataNotFoundException::new);
+        List<Question> questions = questionRepository.findAllByBookDiary(bookDiary);
+
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for (Question question : questions) {
+            questionDtos.add(new QuestionDto(question.getQuestion(), question.getAnswer(), question.getDegree()));
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("questionAnswer", questionDtos);
+
+        return response;
     }
 }
