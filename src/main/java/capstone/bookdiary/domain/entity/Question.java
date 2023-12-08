@@ -23,4 +23,8 @@ public class Question extends BaseTimeEntity{
     private String answer;
 
     private Integer degree;
+
+    public void answerQuestion(String answer){
+        this.answer = answer;
+    }
 }

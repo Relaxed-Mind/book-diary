@@ -1,5 +1,7 @@
 package capstone.bookdiary.service;
 
+import capstone.bookdiary.domain.dto.QuestionAndAnswerDto;
+import capstone.bookdiary.domain.dto.QuestionAndAnswerListDto;
 import capstone.bookdiary.domain.dto.QuestionDto;
 import capstone.bookdiary.domain.dto.ScrapResponseDto;
 import capstone.bookdiary.domain.entity.BookDiary;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -86,6 +89,29 @@ public class QuestionService {
 
         Map<String, Object> response = new HashMap<>();
         response.put("questionAnswer", questionDtos);
+
+        return response;
+    }
+
+    @Transactional
+    public Map<String, Object> answerQuestions(QuestionAndAnswerListDto questionAndAnswerListDto) {
+        List<Long> ids = new ArrayList<>();
+
+        for (QuestionAndAnswerDto questionAndAnswerDto : questionAndAnswerListDto.getQuestionAndAnswer()) {
+            Question question = questionRepository.findById(questionAndAnswerDto.getQuestionId()).
+                    orElseThrow(DataNotFoundException::new);
+
+            String answer = questionAndAnswerDto.getAnswer();
+            if(answer.equals("")){
+                questionRepository.delete(question);
+            }else{
+                question.answerQuestion(answer);
+                ids.add(question.getQuestionId());
+            }
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("questionIds", ids);
 
         return response;
     }
