@@ -40,7 +40,7 @@ public class QuestionController {
     }
 
     @PatchMapping("/questions/first/answer")
-    @Operation(summary = "[미완성] 1차 질문 답변", description = "1차 질문에 대한 답변을 저장합니다 [답변 안 하는경우 빈 문자열로 보내주시면 DB에서 해당 질문 삭제합니다.]")
+    @Operation(summary = "[미완성] 질문 답변", description = "질문에 대한 답변을 저장합니다 [답변 안 하는경우 빈 문자열로 보내주시면 DB에서 해당 질문 삭제합니다.]")
     private ResponseEntity<Map<String,Object>> answerQuestions(@RequestBody QuestionAndAnswerListDto questionAndAnswerListDto){
         return ResponseEntity
                 .ok()
