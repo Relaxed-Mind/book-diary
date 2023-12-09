@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,6 +72,14 @@ public class DiaryController {
         return ResponseEntity
                 .ok()
                 .body(scrapService.modifyScrap(scrapId, scrapRequestDto));
+    }
+
+    @DeleteMapping("/diary/{scrapId}")
+    @Operation(summary = "스크랩 삭제", description = "스크랩을 삭제합니다.")
+    private ResponseEntity<Map<String, Object>> deleteScrap(@PathVariable Long scrapId){
+        return ResponseEntity
+                .ok()
+                .body(scrapService.deleteScrap(scrapId));
     }
 
     @PatchMapping("/diary/{bookDiaryId}/rate")

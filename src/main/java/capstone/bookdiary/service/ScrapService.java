@@ -39,4 +39,13 @@ public class ScrapService {
         response.put("scrapId", scrapId);
         return response;
     }
+
+    @Transactional
+    public Map<String, Object> deleteScrap(Long scrapId) {
+        scrapRepository.deleteById(scrapId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("response", "ok");
+        return response;
+    }
 }
