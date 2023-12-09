@@ -7,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Question extends BaseTimeEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
@@ -23,6 +25,13 @@ public class Question extends BaseTimeEntity{
     private String answer;
 
     private Integer degree;
+
+    public Question(BookDiary bookDiary, String question, Integer degree) {
+        this.bookDiary = bookDiary;
+        this.question = question;
+        this.degree = degree;
+        this.answer = "";
+    }
 
     public void answerQuestion(String answer){
         this.answer = answer;

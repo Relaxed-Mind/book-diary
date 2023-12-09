@@ -24,7 +24,7 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/questions/{bookDiaryId}")
-    @Operation(summary = "[미완성] 질문 및 답변 가져오기", description = "질문 및 답변을 가져옵니다. [답변이 없으면 빈 문자열 반환]")
+    @Operation(summary = "질문 및 답변 가져오기", description = "질문 및 답변을 가져옵니다. [답변이 없으면 빈 문자열 반환]")
     private ResponseEntity<Map<String, Object>> getQuestionsAndAnswers(@PathVariable Long bookDiaryId){
         return ResponseEntity
                 .ok()
@@ -32,7 +32,7 @@ public class QuestionController {
     }
 
     @PostMapping("/questions/first/{bookDiaryId}")
-    @Operation(summary = "[미완성] 1차 질문 생성", description = "스크랩을 바탕으로 1차 질문을 생성합니다.")
+    @Operation(summary = "1차 질문 생성", description = "스크랩을 바탕으로 1차 질문을 생성합니다. [생성된 questionId List 반환]")
     private ResponseEntity<Map<String, Object>> generateFirstQuestions(@PathVariable Long bookDiaryId){
         return ResponseEntity
                 .ok()
