@@ -3,6 +3,7 @@ package capstone.bookdiary.exception;
 import capstone.bookdiary.exception.error.ErrorCode;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.exception.exceptions.EmailDuplicateException;
+import capstone.bookdiary.exception.exceptions.ImageAlreadyExistException;
 import capstone.bookdiary.exception.exceptions.UserNotFoundException;
 import capstone.bookdiary.exception.response.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -36,5 +37,10 @@ public class GlobalControllerAdvice {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     protected ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getBindingResult().getFieldErrors().get(0).getDefaultMessage() , HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ImageAlreadyExistException.class)
+    ResponseEntity<ApiErrorResponse> imageAlreadyExistException(ImageAlreadyExistException e){
+        return ApiErrorResponse.toResponseEntity(e.getErrorCode());
     }
 }
