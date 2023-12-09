@@ -9,6 +9,7 @@ import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Question;
 import capstone.bookdiary.exception.exceptions.DataNotFoundException;
 import capstone.bookdiary.feign.FirstQuestionClient;
+import capstone.bookdiary.feign.SecondQuestionClient;
 import capstone.bookdiary.repository.BookDiaryRepository;
 import capstone.bookdiary.repository.QuestionRepository;
 import capstone.bookdiary.repository.ScrapRepository;
@@ -28,6 +29,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final BookDiaryRepository bookDiaryRepository;
     private final FirstQuestionClient firstQuestionClient;
+    private final SecondQuestionClient secondQuestionClient;
 
     public Map<String, Object> generateFirstQuestions(Long bookDiaryId){
         //키워드 받아오기
@@ -83,16 +85,30 @@ public class QuestionService {
             question.append(i+1).append(".").append(questionAnswer.getQuestion()).append("\n");
             answer.append("답변").append(i + 1).append(": ").append(questionAnswer.getAnswer()).append("\n");
         }
-        System.out.println("question = " + question.toString());
-        System.out.println("answer = " + answer.toString());
 
-        Map<String, Object> request = new HashMap<>();
-        request.put("scrapMemo", scrapMemo.toString());
-        request.put("question", question.toString());
-        request.put("answer", answer.toString());
+        //AI로 전송
+        Map<String, Object> json = new HashMap<>();
+        json.put("scrapMemo", scrapMemo.toString());
+        json.put("question", question.toString());
+        json.put("answer", answer.toString());
+        FeignQuestionDto secondQuestion = secondQuestionClient.getSecondQuestion(json);
+        JSONObject body = secondQuestion.getBody();
 
+        List<Long> questionIds = new ArrayList<>();
+
+        String questionString = (String)body.get("gpt_generated_question");
+        String[] questionStrings = questionString.split("\n");
+
+        for (String qs : questionStrings) {
+            System.out.println(qs);
+            Question savedQuestion = questionRepository.save(new Question(bookDiary, qs, 2));
+            questionIds.add(savedQuestion.getQuestionId());
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("questionIds", questionIds);
         //2차 질문 return
-        return request;
+        return response;
     }
 
     public Map<String, Object> getQuestionsAndAnswers(Long bookDiaryId) {

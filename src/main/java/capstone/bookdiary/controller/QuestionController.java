@@ -40,7 +40,7 @@ public class QuestionController {
     }
 
     @PatchMapping("/questions/first/answer")
-    @Operation(summary = "[미완성] 질문 답변", description = "질문에 대한 답변을 저장합니다 [답변 안 하는경우 빈 문자열로 보내주시면 DB에서 해당 질문 삭제합니다.]")
+    @Operation(summary = "질문 답변", description = "질문에 대한 답변을 저장합니다 [답변 안 하는경우 빈 문자열로 보내주시면 DB에서 해당 질문 삭제합니다.]")
     private ResponseEntity<Map<String,Object>> answerQuestions(@RequestBody QuestionAndAnswerListDto questionAndAnswerListDto){
         return ResponseEntity
                 .ok()
@@ -48,7 +48,7 @@ public class QuestionController {
     }
 
     @PostMapping("/questions/second/{bookDiaryId}")
-    @Operation(summary = "[미완성] 2차 질문 생성", description = "스크랩과 1차 답변을 바탕으로 2차 질문을 생성합니다.")
+    @Operation(summary = "2차 질문 생성", description = "스크랩과 1차 답변을 바탕으로 2차 질문을 생성합니다.")
     private ResponseEntity<Map<String, Object>> generateSecondQuestions(@PathVariable Long bookDiaryId){
         return ResponseEntity
                 .ok()
