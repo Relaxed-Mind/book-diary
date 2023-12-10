@@ -1,6 +1,5 @@
 package capstone.bookdiary.repository;
 
-import capstone.bookdiary.domain.dto.QuestionDto;
 import capstone.bookdiary.domain.entity.BookDiary;
 import capstone.bookdiary.domain.entity.Question;
 import java.util.List;
