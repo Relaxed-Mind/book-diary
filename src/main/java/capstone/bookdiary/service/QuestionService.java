@@ -82,7 +82,7 @@ public class QuestionService {
         StringBuilder answer = new StringBuilder();
         for(int i=0; i<questions.size(); i++){
             Question questionAnswer = questions.get(i);
-            question.append(i+1).append(".").append(questionAnswer.getQuestion()).append("\n");
+            question.append(questionAnswer.getQuestion()).append("\n");
             answer.append("답변").append(i + 1).append(": ").append(questionAnswer.getAnswer()).append("\n");
         }
 
@@ -91,6 +91,7 @@ public class QuestionService {
         json.put("scrapMemo", scrapMemo.toString());
         json.put("question", question.toString());
         json.put("answer", answer.toString());
+
         FeignQuestionDto secondQuestion = secondQuestionClient.getSecondQuestion(json);
         JSONObject body = secondQuestion.getBody();
 
