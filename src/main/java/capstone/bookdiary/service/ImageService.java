@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +48,16 @@ public class ImageService {
             //return: DB에 저장된 ImageId
             return response;
         }
+    }
+
+    @Transactional
+    public Map<String, Object> deleteImage(Long imageId) {
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(DataNotFoundException::new);
+        imageRepository.delete(image);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("delete", "ok");
+        return response;
     }
 }

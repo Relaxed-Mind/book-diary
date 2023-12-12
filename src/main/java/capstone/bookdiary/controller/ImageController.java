@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,4 +29,11 @@ public class ImageController {
                 .ok()
                 .body(imageService.generateImage(imageRequestDto));
     }
+    @DeleteMapping("/image/{imageId}")
+    @Operation(summary = "이미지 삭제", description = "해당 스크랩의 이미지를 삭제합니다.")
+    private ResponseEntity<Map<String, Object>> deleteImage(@PathVariable Long imageId){
+        return ResponseEntity
+                .ok()
+                .body(imageService.deleteImage(imageId));
+    };
 }
