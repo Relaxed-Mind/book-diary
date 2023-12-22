@@ -1,5 +1,5 @@
 <div align="center">
-	<h1>[~~~인 서비스], Readiary</h1>
+	<h1>~~~인 서비스, Readiary</h1>
 	<!---><img src=""/><--->
 </div>
 
@@ -26,12 +26,10 @@
 
 <div>
 <br/>
-<h2 align="left">프론트앤드</h2> 
-  <img src="./src/lib/images/readme/fe-skills.png"/>
+<img src=""/>
 <br/>
 <br/>
-<h2 align="left">백앤드</h2> 
-    <img src="./src/lib/images/readme/be-skills.png"/>
+	설명123123
   <br/>
 </div>
   <br/>
