@@ -1,7 +1,7 @@
 <div align="center">
 	<h1>독후감을 작성하는 재미를 느끼며 독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스, Readiary</h1>
 	<br>
-	<!---><img src="Readiary.png"/>{: width="100" height="100"}<--->
+	<!--->(img src="Readiary.png"){: width="100" height="100"}<--->
 </div>
 
 # 프로젝트 소개
