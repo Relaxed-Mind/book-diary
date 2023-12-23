@@ -34,19 +34,27 @@
 <br/>
 <img src=""/>
 <br/>
-<br/>
-	설명123123
-  <br/>
+	<br/>
+	◇ 프런트엔드 시스템, 백엔드 시스템, AI 서비스 시스템, 데이터베이스 시스템 등 여러 하위 시스템들을 통합하여 하나의 완전한 서비스를 구성. 위는 이를 모식적으로 나타낸 것이다.<br>
+	◇ 프론트엔드와 백엔드는 REST API를 사용하여 통신<br>
+ 	◇ AI는 서버리스 아키텍처로 구성<br>
+ 	◇ 백엔드와 AI는 API Gateway를 통해 통신<br>
+ 	◇ 도서관 정보나루와 백엔드가 API로 통신<br>
+	<br/>
 </div>
-  <br/>
-  <br/>
+<br/>
+<div>
+	◇ 구현 사진 
+	![image]()<br>
+</div>
+<br/>
 
 # 팀원
 
 | AI | AI | Backend | Frontend |
 | :-: | :-: | :-: | :-: |
 | ![image]() | ![image]() | ![image]() | ![image]() | ![image]() |
-| [이경윤](https://github.com/Yoonlee)<br/> | [배세윤]()<br/> | [이진수](https://github.com/Relaxed-Mind)<br/> | [전호균]()<br/> |
+| [이경윤](https://github.com/Yooonlee)<br/> | [배세윤]()<br/> | [이진수](https://github.com/Relaxed-Mind)<br/> | [전호균]()<br/> |
 
  <br/>
 <br/>
