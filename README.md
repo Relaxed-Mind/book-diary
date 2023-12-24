@@ -22,16 +22,16 @@
 
 # 핵심 기능
 
-1. 책을 검색할 수 있다.
+1. 책을 검색할 수 있다. <br>
    <img src="./image/bookSearch.png" width="300"/> <br><br>
 
-2. 나의 책장에 책을 등록할 수 있다.
+2. 나의 책장에 책을 등록할 수 있다. <br>
    <img src="./image/myBook.png" width="300"> <br><br>
 
-3. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다.
+3. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다. <br>
    <img src="./image/specificBook.png" width="300"> <br><br> 
 
-4.  GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다.
+4.  GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다. 
    <img src="./image/questionAnswer.png" width="300"> <br><br> 
 
 
