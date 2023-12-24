@@ -22,20 +22,20 @@
 # 핵심 기능
 
 1. 책을 검색할 수 있다.
-   <img src="./image/책검색.png" width="300" > <br><br>
+   <img src="./image/책검색.png" width="300"/> <br><br>
 
 2. 나의 책장에 책을 등록할 수 있다.
-   <img src="./image/나의책장.png" width="300" > <br><br>
+   <img src="./image/나의책장.png" width="300"/> <br><br>
 
 3. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다.
-   <img src="./image/책장속의책.png" width="300" > <br><br> 
+   <img src="./image/책장속의책.png" width="300"/> <br><br> 
 
 4.  GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다.
-   <img src="./image/질문답변.png" width="300"> <br><br> 
+   <img src="./image/질문답변.png" width="300"/> <br><br> 
 
 
 5. 이미지 생성 역시 Diffusion 모델을 활용하여 문맥에 맞는 자연스러운 이미지 생성이 가능하다.<br>
-   <img src="./image/이미지.png" width="300"> <br><br> 
+   <img src="./image/이미지.png" width="300"/> <br><br> 
 
 
 
@@ -58,7 +58,7 @@
 
 | AI | AI | Backend & Infra | Frontend |
 | :-: | :-: | :-: | :-: |
-| <img src="./image/이경윤메일.jpg" width="100"/> | ![image]() | ![image]() | <img src="./image/이진수.jpeg" width="100"/> | ![image]() |
+| <img src="./image/이경윤메일.jpg" width="100"/> | ![image]() | <img src="./image/이진수.jpeg" width="100"/> | ![image]() |
 | [이경윤](https://github.com/Yooonlee)<br/> | [배세윤]()<br/> | [이진수](https://github.com/Relaxed-Mind)<br/> | [전호균]()<br/> |
 
  <br/>
@@ -71,7 +71,7 @@
 매주 보고서 작성 및 ppt 제작 <br/>
 유저 시나리오 작성 <br/>
 논문 검토 및 수정 <br/>
----
+
 ◇ 이진수 ㅣ <br/>
 팀장 <br/>
 데이터베이스 설계 <br/>
@@ -79,17 +79,17 @@ API 설계 및 제작 <br/>
 백엔드 서버 배포 <br/>
 데이터베이스 배포 <br/>
 온라인 저장소 배포 <br/>
----
+
 ◇ 전호균 | <br/>
 사용자 인터페이스 설계 <br/>
 프런트엔드 시스템 설계 및 개발 <br/>
 프런트엔드 서버 배포 <br/>
----
+
 ◇ 이경윤 | <br/>
 이미지 생성 <br/>
 이미지 실험 <br/>
 람다 배포 <br/>
----
+
 ◇ 배세윤 | <br/>
 논문 초안 작성 <br/>
 질문 생성 <br/>
