@@ -1,5 +1,6 @@
 <div align="center">
-	<h1>독후감을 작성하는 재미를 느끼며 독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스, Readiary</h1>
+	<h1>독후감을 작성하는 재미를 느끼며 
+   <br>독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스, Readiary</h1>
 	<br>
 	<img src="./image/Readiary.png" width="300" height="300">
 </div>
@@ -22,20 +23,20 @@
 # 핵심 기능
 
 1. 책을 검색할 수 있다.
-   <img src="./image/책검색.png" width="300"/> <br><br>
+   <img src="./image/bookSearch.png" width="300"/> <br><br>
 
 2. 나의 책장에 책을 등록할 수 있다.
-   <img src="./image/나의책장.png" width="300"/> <br><br>
+   <img src="./image/myBook.png" width="300"> <br><br>
 
 3. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다.
-   <img src="./image/책장속의책.png" width="300"/> <br><br> 
+   <img src="./image/specificBook.png" width="300"> <br><br> 
 
 4.  GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다.
-   <img src="./image/질문답변.png" width="300"/> <br><br> 
+   <img src="./image/questionAnswer.png" width="300"> <br><br> 
 
 
 5. 이미지 생성 역시 Diffusion 모델을 활용하여 문맥에 맞는 자연스러운 이미지 생성이 가능하다.<br>
-   <img src="./image/이미지.png" width="300"/> <br><br> 
+   <img src="./image/scrapImage.png" width="300"> <br><br> 
 
 
 
@@ -58,7 +59,7 @@
 
 | AI | AI | Backend & Infra | Frontend |
 | :-: | :-: | :-: | :-: |
-| <img src="./image/이경윤메일.jpg" width="100"/> | ![image]() | <img src="./image/이진수.jpeg" width="100"/> | ![image]() |
+| <img src="./image/ky.jpg" width="100"/> | ![image]() | <img src="./image/jinsu.jpeg" width="140"/> | ![image]() |
 | [이경윤](https://github.com/Yooonlee)<br/> | [배세윤]()<br/> | [이진수](https://github.com/Relaxed-Mind)<br/> | [전호균]()<br/> |
 
  <br/>
