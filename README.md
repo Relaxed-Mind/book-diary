@@ -5,15 +5,30 @@
 <!--   <p>독후감을 작성하는 재미를 느끼며 독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스</p> -->
   <p>질문과 이미지 생성을 통한 더 나은 독후활동, 그리고 나만의 독서 기록장</p>
   <p>독서만의 깊은 위로와 사유의 폭을 넓혀보세요!</p>
-</div>
 
----
+  <div>
+    <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white"/>
+  </div>
+  <div>
+    <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=openjdk&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
+  </div>
+  <div>
+    <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white"/>
+  </div>
+</div>
 
 > 서울시립대학교 2023년 2학기 컴퓨터과학종합설계
 > 
-> **진행 기간**: 2023. 09. - 2023. 12.
-
-> 배포: https://readiary.vercel.app
+> * **진행 기간**: 2023. 09. - 2023. 12.
+> 
+> * **Deployed at**: https://readiary.vercel.app
+> 
+> * **Source**
+>   * Backend: [relaxed-mind/book-diary](https://github.com/relaxed-mind/book-diary)
+>   * Frontend: [hoqn/readiary-fe](https://github.com/hoqn/readiary-fe)
 
 # 프로젝트 소개
 
