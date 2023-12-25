@@ -1,47 +1,50 @@
 <div align="center">
-	<p>독후감을 작성하는 재미를 느끼며 독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스,</p>
-   <div style="font-weight: bold; font-size: 2em; margin-bottom: 1rem;">Readiary</div>
-	<!-- <img src="./image/Readiary.png" width="300" height="300"> -->
-	<img src="./image/ic.svg" width="92" height="92">
+  <!-- <img src="./image/Readiary.png" width="300" height="300"> -->
+  <img src="./image/ic.svg" width="92" height="92">
+  <h3>Readiary</h3>
+<!--   <p>독후감을 작성하는 재미를 느끼며 독서만의 깊은 위로와 사유의 기회를 얻을 수 있게 하는 서비스</p> -->
+  <p>질문과 이미지 생성을 통한 더 나은 독후활동, 그리고 나만의 독서 기록장</p>
+  <p>독서만의 깊은 위로와 사유의 폭을 넓혀보세요!</p>
 </div>
+
+---
+
+> 서울시립대학교 2023년 2학기 컴퓨터과학종합설계
+> 
+> **진행 기간**: 2023. 09. - 2023. 12.
+
+> 배포: https://readiary.vercel.app
 
 # 프로젝트 소개
 
-### 서비스 소개
-
+### 기획 배경 및 기대 효과
 * 최근 대중들의 문해력 부족이 사회적으로 큰 화두로 떠올랐다. 이를 타개하기 위한 방법으로 독서 활동이 언급되고 있지만, 최근 국내 독서율 및 독서량은 지속적으로 낮아지고 있다.
-
 * 이에 ‘리더스’, ‘북모리’와 같은 서비스들이 제공되었으나 깊고 풍부한 독서 경험 제공에는 한계가 있다.
-
 * 매년 전자책 독서율은 증가하는 추세이며 출판 산업의 매출액은 7조 8000억 이상으로 파이가 큰 시장이다.
-
 * 이에 이번 프로젝트의 타겟층은 2~30대로 독후감을 작성하는 재미를 느끼며 독서에서만 얻을 수 있는 깊은 위로와 사유의 기회를 얻을 수 있도록 한다.
-
 * 이는 이미지 생성을 통한 시각화 전략과, 문답 전략을 통해 도서에 대한 깊이있는 고찰과 지속가능한 독서활동을 가능케할 것이라 기대한다.
 
 # 핵심 기능
 
 1. 책을 검색할 수 있다.
 
-   <img src="./image/bookSearch.png" width="300"/>
+  <img src="./image/bookSearch.png" width="200"/>
 
-1. 나의 책장에 책을 등록할 수 있다.
+2. 나의 책장에 책을 등록할 수 있다.
 
-   <img src="./image/myBook.png" width="300">
+  <img src="./image/myBook.png" width="200">
 
-1. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다.
+3. 책장 속의 책을 읽고 별점을 부여하거나 읽은 정도를 표시할 수 있다.
+  
+  <img src="./image/specificBook.png" width="200"> 
 
-   <img src="./image/specificBook.png" width="300">
+4. GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다.
 
-1. GPT 기술을 활용하여 실제 사람이 질문 한 것처럼 자연스러운 질문 생성 및 재생성이 가능하다. 
-   
-   <img src="./image/questionAnswer.png" width="300">
+  <img src="./image/questionAnswer.png" width="200">
 
+5. 이미지 생성 역시 Diffusion 모델을 활용하여 문맥에 맞는 자연스러운 이미지 생성이 가능하다.
 
-1. 이미지 생성 역시 Diffusion 모델을 활용하여 문맥에 맞는 자연스러운 이미지 생성이 가능하다.
-
-   <img src="./image/scrapImage.png" width="300">
-
+  <img src="./image/scrapImage.png" width="200"> 
 
 
 # 프로젝트 아키텍처
