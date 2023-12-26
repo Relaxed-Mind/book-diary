@@ -77,7 +77,7 @@
 
 | AI | AI | Backend & Infra | Frontend |
 | :-: | :-: | :-: | :-: |
-| <img src="./image/ky.jpg" width="100"/> | <img src="https://github.com/bsu1313.png" width="100"> | <img src="./image/jinsu.jpeg" width="140"/> | <img src="https://github.com/hoqn.png" width="100"> |
+| <img src="./image/ky.jpg" width="100"> | <img src="https://github.com/bsu1313.png" width="100"> | <img src="https://github.com/Relaxed-Mind.png" width="100"> | <img src="https://github.com/hoqn.png" width="100"> |
 | [이경윤](https://github.com/Yooonlee) | [배세윤](https://github.com/bsu1313)<br/> | [이진수](https://github.com/Relaxed-Mind) | [전호균](https://github.com/hoqn)<br/> |
 
 ## 맡은 역할
